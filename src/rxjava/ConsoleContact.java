@@ -1,23 +1,18 @@
 package rxjava;
 
+import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
-public class Console implements ContactMode {
+public class ConsoleContact implements Observer<URLResource> {
 	
 	private final String url;
 	
 	/**
 	 * @param url
 	 */
-	public Console(final String url) {
+	public ConsoleContact(final String url) {
 		super();
 		this.url = url;
-	}
-
-	@Override
-	public void getNotifications(Object obj) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override

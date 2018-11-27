@@ -12,7 +12,7 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-class Broadcast {
+class EmailBroadcast {
 
 	private Session session;
 	private final String username;
@@ -22,7 +22,7 @@ class Broadcast {
 	 * @param username
 	 * @param password
 	 */
-	public Broadcast(String username, String password) {
+	public EmailBroadcast(String username, String password) {
 		this.username = username;
 		this.password = password;
 		init(username, password);
@@ -41,7 +41,7 @@ class Broadcast {
 		session = Session.getInstance(props, new Authenticator() {
 			@Override
 			protected PasswordAuthentication getPasswordAuthentication() {
-				return new PasswordAuthentication(Broadcast.this.username, Broadcast.this.password);
+				return new PasswordAuthentication(EmailBroadcast.this.username, EmailBroadcast.this.password);
 			}
 		});
 
@@ -65,7 +65,7 @@ class Broadcast {
 			status = true;
 
 		} catch (MessagingException ex) {
-			Logger.getLogger(Broadcast.class.getName()).log(Level.SEVERE, null, ex);
+			Logger.getLogger(EmailBroadcast.class.getName()).log(Level.SEVERE, null, ex);
 		}
 		return status;
 	}

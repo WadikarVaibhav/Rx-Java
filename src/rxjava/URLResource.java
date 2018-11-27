@@ -1,19 +1,17 @@
 package rxjava;
 
-import java.util.Date;
-
 public class URLResource  {
 
 	private final String url;
 	private final String contactMode;
-	private Date lastModifiedTime;
+	private long lastModifiedTime;
 	
 	/**
 	 * @param url
 	 * @param contactMode
 	 * @param lastModifiedTime
 	 */
-	public URLResource(String url, String contactMode, Date lastModifiedTime) {
+	public URLResource(String url, String contactMode, long lastModifiedTime) {
 		super();
 		this.url = url;
 		this.contactMode = contactMode;
@@ -23,7 +21,7 @@ public class URLResource  {
 	/**
 	 * @param lastModifiedTime
 	 */
-	public void setLastModifiedTime(Date lastModifiedTime) {
+	public void setLastModifiedTime(long lastModifiedTime) {
 		this.lastModifiedTime = lastModifiedTime;
 	}
 
@@ -35,7 +33,7 @@ public class URLResource  {
 		return contactMode;
 	}
 
-	public Date getLastModifiedTime() {
+	public long getLastModifiedTime() {
 		return lastModifiedTime;
 	}
 	

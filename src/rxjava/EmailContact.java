@@ -1,13 +1,14 @@
 package rxjava;
 
+import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
-public class Email implements ContactMode {
+class EmailContact implements Observer<URLResource>  {
 	
 	private final String email;
 	private final String url;
 	
-	public Email(String email, String url) {
+	public EmailContact(String email, String url) {
 		super();
 		this.email = email;
 		this.url = url;
@@ -15,11 +16,6 @@ public class Email implements ContactMode {
 	
 	public String getEmail() {
 		return email;
-	}
-
-	@Override
-	public void getNotifications(Object obj) {
-		
 	}
 
 	@Override
@@ -38,9 +34,12 @@ public class Email implements ContactMode {
 	 */
 	@Override
 	public void onNext(URLResource urlResource) {
+		EmailBroadcast sender = new EmailBroadcast("rohitkulkarni8395@gmail.com", "vaibhav123");
 		if (url.equals(urlResource.getUrl())) {
-			Broadcast mailer = new Broadcast("rohitkulkarni8395@gmail.com", "vaibhav123");
-			boolean status = mailer.send(email, "Change in " + url, "Changes");
+//			boolean status = sender.send(email, "Change in " + url, "Changes");
+//			if (status) {
+//				System.out.println("Email sent to: "+email);				
+//			}
 		}
 	}
 
