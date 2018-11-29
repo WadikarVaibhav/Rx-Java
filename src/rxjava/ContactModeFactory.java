@@ -17,24 +17,22 @@ public class ContactModeFactory {
 	 * contactDetails.get(3) represents phone number carrier in case of SMS as a contact mode
 	 * @return
 	 */
-	public static Observer<URLResource> getContactMode(List<String> contactDetails) {
+	public static Observer<String> getContactMode(List<String> contactDetails) {
 		
-		
-		String url = String.valueOf(contactDetails.get(0));
 		String contactMode = String.valueOf(contactDetails.get(1));
 		
 		switch (contactMode) {
 			case MAIL: {
 				String receiverEmail = String.valueOf(contactDetails.get(2));
-				return new EmailContact(receiverEmail, url);			
+				return new EmailContact(receiverEmail);			
 			}
 			case SMS: {
 				String phoneNumber = String.valueOf(contactDetails.get(2));
 				String carrier = String.valueOf(contactDetails.get(3));
-				return new PhoneContact(phoneNumber, carrier, url);
+				return new PhoneContact(phoneNumber, carrier);
 			}
 			case CONSOLE: {
-				return new ConsoleContact(url);
+				return new ConsoleContact();
 			}
 			default: {
 				return null;

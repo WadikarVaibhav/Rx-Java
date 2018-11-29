@@ -1,24 +1,46 @@
 package rxjava;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
-public class PhoneContact implements Observer<URLResource>  {
+public class PhoneContact implements Observer<String>  {
 	
 	private final String phoneNumber;
 	private final String serviceProvider;
-	private final String url;
+	private static final Map<String, String> PHONE_CARRIERS = new HashMap<>();
+	
+	static {
+		PHONE_CARRIERS.put("Verizon", "@vzwpix.com");
+		PHONE_CARRIERS.put("Sprint", "@pm.sprint.com");
+		PHONE_CARRIERS.put("T-Mobile", "@tmomail.net");
+		PHONE_CARRIERS.put("AT&T", "@mms.att.net");
+		PHONE_CARRIERS.put("Cricket Wireless", "@mms.cricketwireless.net");
+		PHONE_CARRIERS.put("U.S. Cellular", "@mms.uscc.net");
+	}
+	
+	/**
+	 * @param carrier
+	 * @return
+	 */
+	public String getCarrierEmail(String carrier) {
+		if (PHONE_CARRIERS.get(carrier) != null) {
+			return PHONE_CARRIERS.get(carrier);
+		}
+		return null;
+	}
 	
 	/**
 	 * @param phoneNumber
 	 * @param serviceProvider
 	 * @param url
 	 */
-	public PhoneContact(String phoneNumber, String serviceProvider, String url) {
+	public PhoneContact(String phoneNumber, String serviceProvider) {
 		super();
 		this.phoneNumber = phoneNumber;
 		this.serviceProvider = serviceProvider;
-		this.url = url;
 	}
 
 	public String getPhoneNumber() {
@@ -27,10 +49,6 @@ public class PhoneContact implements Observer<URLResource>  {
 
 	public String getServiceProvider() {
 		return serviceProvider;
-	}
-
-	public String getUrl() {
-		return url;
 	}
 
 	@Override
@@ -48,13 +66,11 @@ public class PhoneContact implements Observer<URLResource>  {
 	 * @see io.reactivex.Observer#onNext(java.lang.Object)
 	 */
 	@Override
-	public void onNext(URLResource urlResource) {
+	public void onNext(String url) {
 		EmailBroadcast sender = new EmailBroadcast("rohitkulkarni8395@gmail.com", "vaibhav123");
-		if (urlResource.getUrl().equals(url)) {
-//			boolean status = sender.send(phoneNumber.concat(PhoneCarriers.getCarrierEmail(serviceProvider)), "Changes in "+url, "Testing changes");
-//			if (status) {
-//				System.out.println("SMS sent to: "+phoneNumber);				
-//			}
+		boolean status = sender.send(phoneNumber.concat(getCarrierEmail(serviceProvider)), "Changes in "+url, "Testing changes");
+		if (status) {
+			System.out.println("SMS sent to: "+phoneNumber);				
 		}
 	}
 

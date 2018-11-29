@@ -3,16 +3,13 @@ package rxjava;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
-public class ConsoleContact implements Observer<URLResource> {
-	
-	private final String url;
+public class ConsoleContact implements Observer<String> {
 	
 	/**
 	 * @param url
 	 */
-	public ConsoleContact(final String url) {
+	public ConsoleContact() {
 		super();
-		this.url = url;
 	}
 
 	@Override
@@ -27,12 +24,8 @@ public class ConsoleContact implements Observer<URLResource> {
 	}
 
 	@Override
-	public void onNext(URLResource urlResource) {
-		System.out.println("Changes detected in " + urlResource.getUrl());
-	}
-
-	public String getUrl() {
-		return url;
+	public void onNext(String url) {
+		System.out.println("Changes detected in " + url);
 	}
 
 	@Override

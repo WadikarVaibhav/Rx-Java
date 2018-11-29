@@ -3,24 +3,23 @@ package rxjava;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
-class EmailContact implements Observer<URLResource>  {
+class EmailContact implements Observer<String>  {
 	
-	private final String email;
-	private final String url;
+	private static final String SENDER = "rohitkulkarni8395@gmail.com";
+	private final String receiver;
 	
-	public EmailContact(String email, String url) {
+	public EmailContact(String email) {
 		super();
-		this.email = email;
-		this.url = url;
+		this.receiver = email;
 	}
 	
 	public String getEmail() {
-		return email;
+		return receiver;
 	}
 
 	@Override
 	public void onComplete() {
-		System.out.println("Notified to: "+email);
+		System.out.println("Notified to: "+receiver);
 	}
 
 	@Override
@@ -33,13 +32,11 @@ class EmailContact implements Observer<URLResource>  {
 	 * @see io.reactivex.Observer#onNext(java.lang.Object)
 	 */
 	@Override
-	public void onNext(URLResource urlResource) {
-		EmailBroadcast sender = new EmailBroadcast("rohitkulkarni8395@gmail.com", "vaibhav123");
-		if (url.equals(urlResource.getUrl())) {
-//			boolean status = sender.send(email, "Change in " + url, "Changes");
-//			if (status) {
-//				System.out.println("Email sent to: "+email);				
-//			}
+	public void onNext(String url) {
+		EmailBroadcast sender = new EmailBroadcast(SENDER, "vaibhav123");
+		boolean status = sender.send(receiver, "Change in " + url, "Changes");
+		if (status) {
+			System.out.println("Email sent to: "+receiver);				
 		}
 	}
 
